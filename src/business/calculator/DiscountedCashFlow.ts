@@ -1,19 +1,18 @@
 export class DiscountCashFlowCalculator {
-  /** number of years before perpetuity **/
-  private YEARS = 10;
-  /** discount rate **/
-  private DR: number;
-  /** GR **/
-  private GR: number;
   /** long term growth rate **/
-  private LTGR = 0.03;
-  private baseFreeCashFlow: number;
-
+  private LTGR = 0.03
+  /** number of years before perpetuity **/
+  private YEARS = 10
+  /** discount rate **/
+  private readonly DR: number
+  /** growth rate **/
+  private readonly GR: number
+  private readonly baseFreeCashFlow: number
 
   constructor(DR: number, GR: number, baseFreeCashFlow: number) {
-    this.DR = DR;
-    this.GR = GR;
-    this.baseFreeCashFlow = baseFreeCashFlow;
+    this.DR = DR
+    this.GR = GR
+    this.baseFreeCashFlow = baseFreeCashFlow
   }
 
   /**
