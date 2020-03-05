@@ -1,14 +1,36 @@
 <template>
   <div class="about">
-    <label for="discount_rate">Discount Rate</label>
-    <input id="discount_rate" type="number" v-model="discount_rate">
-
-    <label for="growth_rate">Growth Rate</label>
-    <input id="growth_rate" type="number" v-model="growth_rate">
-
-    <div v-if="discount_rate > 0 && growth_rate > 0">
-      {{discountedCashFlow}}
+    <div>
+      <label for="discount_rate">Discount Rate</label>
+      <input id="discount_rate" type="number" v-model="discount_rate">
     </div>
+    <div>
+      <label for="growth_rate">Growth Rate</label>
+      <input id="growth_rate" type="number" v-model="growth_rate">
+    </div>
+    <div>
+      <label for="cash_flow">Cash Flow</label>
+      <input id="cash_flow" type="number" v-model="cash_flow">
+    </div>
+    <table>
+      <tr>
+        <td>Sum of cash flow in ten years</td>
+        <td>{{this.discountedCashFlow.discountedCashFlowSumFirstStage()}}</td>
+      </tr>
+      <tr>
+        <td>Perpetuity cash flow</td>
+        <td>{{this.discountedCashFlow.discountedCashFlowPerpetuity()}}</td>
+      </tr>
+      <tr>
+        <td>Intrinsic value</td>
+        <td>{{this.discountedCashFlow.intrinsicValue()}}</td>
+      </tr>
+      <tr>
+        <td>Number of years for first stage</td>
+        <td>{{this.discountedCashFlow.years}}</td
+        ></tr>
+      <tr></tr>
+    </table>
   </div>
 </template>
 
@@ -20,11 +42,10 @@ import { DiscountCashFlowCalculator } from '@/business/calculator/DiscountedCash
 export default class HelloWorld extends Vue {
     private growth_rate = 0;
     private discount_rate = 0;
+    private cash_flow = 0;
 
-    get discountedCashFlow (): number {
-      const calculator = new DiscountCashFlowCalculator(this.discount_rate, this.growth_rate, 1000)
-
-      return calculator.intrinsicValue()
+    get discountedCashFlow (): DiscountCashFlowCalculator {
+      return new DiscountCashFlowCalculator(this.discount_rate, this.growth_rate, this.cash_flow)
     }
 }
 </script>
