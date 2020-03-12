@@ -3,9 +3,9 @@ import { CashFlowStatement } from '@/business/shapes/CashFlowStatement'
 import { IncomeStatement } from '@/business/shapes/IncomeStatement'
 
 export interface FinancialStatement {
-  ticker: string;
-  year: string;
-  balanceSheet: BalanceSheet;
-  cashFlowStatement: CashFlowStatement;
-  incomeStatement: IncomeStatement;
+  readonly ticker: string;
+  readonly year: string;
+  readonly balance_sheet: BalanceSheet;
+  readonly cash_flow_statement: CashFlowStatement;
+  readonly income_statement: IncomeStatement;
 }

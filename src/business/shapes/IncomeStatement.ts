@@ -1,3 +1,4 @@
 export interface IncomeStatement {
-  net_income: number;
+  readonly revenue: number;
+  readonly net_income: number;
 }

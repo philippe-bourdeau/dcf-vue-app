@@ -1,3 +1,4 @@
 export interface CashFlowStatement {
-  operating_cash_flow: number;
+  readonly operating_cash_flow: number;
+  readonly capex: number;
 }

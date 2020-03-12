@@ -1,3 +1,3 @@
 export interface BalanceSheet {
-  longTermDebt: number;
+  readonly long_term_debt: number;
 }
