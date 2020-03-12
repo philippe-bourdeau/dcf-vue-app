@@ -1,3 +1,5 @@
+import { rateOverYears } from '@/business/math'
+
 export class DiscountCashFlowCalculator {
   /** long term growth rate **/
   private LTGR = 0.03
@@ -32,7 +34,7 @@ export class DiscountCashFlowCalculator {
    * @param years
    */
   cashFlowInYears (years: number): number {
-    return this.baseFreeCashFlow * this.rateOverYears(this.GR, years)
+    return this.baseFreeCashFlow * rateOverYears(this.GR, years)
   }
 
   /**
@@ -41,7 +43,7 @@ export class DiscountCashFlowCalculator {
   discountedCashFlowSumFirstStage (): number {
     let sumOfCashFlow = 0
     for (let i = 1; i <= this.YEARS; i++) {
-      sumOfCashFlow += this.cashFlowInYears(i) / this.rateOverYears(this.DR, i)
+      sumOfCashFlow += this.cashFlowInYears(i) / rateOverYears(this.DR, i)
     }
 
     return sumOfCashFlow
@@ -52,19 +54,10 @@ export class DiscountCashFlowCalculator {
    */
   discountedCashFlowPerpetuity (): number {
     return (this.cashFlowInYears(this.PERPETUITY_YEARS) * (1 + this.LTGR) /
-      (this.DR - this.LTGR)) * (1 / this.rateOverYears(this.DR, this.PERPETUITY_YEARS))
+      (this.DR - this.LTGR)) * (1 / rateOverYears(this.DR, this.PERPETUITY_YEARS))
   }
 
   intrinsicValue (): number {
     return this.discountedCashFlowSumFirstStage() + this.discountedCashFlowPerpetuity()
-  }
-
-  /**
-   * Calculate a factor over a number of years
-   * @param years
-   * @param rate
-   */
-  rateOverYears (rate: number, years: number): number {
-    return (1 + rate) ** years
   }
 }
