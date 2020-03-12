@@ -6,7 +6,7 @@
                     placeholder="ex. T.CA">
       </b-form-input>
       <b-input-group-append>
-        <b-button @click="setTicker" variant="info">Search</b-button>
+        <b-button @click="fetchData" variant="info">Search</b-button>
       </b-input-group-append>
     </b-input-group>
   </div>
@@ -17,11 +17,10 @@ import { Component, Vue } from 'vue-property-decorator'
 
   @Component
 export default class TickerSearch extends Vue {
-    ticker: string = this.$store.state.ticker
+    ticker: string = this.$store.state.metatadata.ticker
 
-    setTicker () {
-      this.$store.commit('setTicker', this.ticker)
-      this.$store.dispatch('fetchStatements')
+    fetchData () {
+      this.$store.dispatch('fetchStatements', this.ticker)
     }
 }
 </script>

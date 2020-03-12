@@ -26,6 +26,10 @@
         <td>{{this.discountedCashFlow.intrinsicValue()}}</td>
       </tr>
       <tr>
+        <td>Intrinsic value per share</td>
+        <td>{{this.$store.state.metadata.outstandingShares}}</td>
+      </tr>
+      <tr>
         <td>Number of years for first stage</td>
         <td>{{this.discountedCashFlow.years}}</td
         ></tr>

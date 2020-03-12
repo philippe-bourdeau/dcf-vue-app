@@ -15,8 +15,12 @@
         {{data.value}}
       </template>
 
+      <template v-slot:cell(eps)="data">
+        {{data.item.income_statement.earnings_per_share}}
+      </template>
+
       <template v-slot:cell(fiscal)="data">
-        {{data.item.year}}
+        {{data.item.fiscal_end_date}}
       </template>
 
       <template v-slot:cell(ocf)="data">
@@ -28,6 +32,10 @@
       </template>
 
       <template v-slot:cell(equity)="data">
+        {{data.value}}
+      </template>
+
+      <template v-slot:cell(fcf)="data">
         {{data.value}}
       </template>
     </b-table>
@@ -65,6 +73,10 @@ export default class HistoryTable extends Vue {
         }
       },
       {
+        key: 'eps',
+        label: 'Earnings per share'
+      },
+      {
         key: 'ocf',
         label: 'Operating Cash Flow (in M$)',
         formatter: (value: number, key: string, item: FinancialStatement) => {
@@ -76,6 +88,15 @@ export default class HistoryTable extends Vue {
         label: 'Capital expenditure (in M$)',
         formatter: (value: number, key: string, item: FinancialStatement) => {
           return this.inMillions(item.cash_flow_statement.capex)
+        }
+      },
+      {
+        key: 'fcf',
+        label: 'Free Cash Flow (in M$)',
+        formatter: (value: number, key: string, item: FinancialStatement) => {
+          const flow = item.cash_flow_statement.operating_cash_flow + item.cash_flow_statement.capex
+
+          return this.inMillions(flow)
         }
       },
       {

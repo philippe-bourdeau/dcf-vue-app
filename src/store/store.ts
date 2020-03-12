@@ -2,33 +2,39 @@ import Vuex, { StoreOptions } from 'vuex'
 import Vue from 'vue'
 import { FinancialStatement } from '@/business/shapes/FinancialStatement'
 import axios from 'axios'
+import { FinancialMetadata } from '@/business/shapes/FinancialMetadata'
 
 Vue.use(Vuex)
 
 interface RootState {
-  ticker: string;
+  metadata: FinancialMetadata;
   statements: FinancialStatement[];
 }
 
 const options: StoreOptions<RootState> = {
   state: {
-    ticker: '',
+    metadata: new FinancialMetadata('', 0, 0),
     statements: []
   },
   mutations: {
-    setTicker (state: RootState, ticker: string) {
-      state.ticker = ticker
+    setMetadata (state: RootState, { ticker, price, market_cap }) {
+      state.metadata = new FinancialMetadata(
+        ticker,
+        price,
+        market_cap
+      )
     },
-    setStatements (state, statements) {
+    setStatements (state: RootState, statements: FinancialStatement[]) {
       state.statements = statements
     }
   },
   actions: {
-    fetchStatements (context) {
+    fetchStatements (context, ticker) {
       axios.get(
-        'http://php-docker.local:8080/raw/' + context.state.ticker
+        'http://php-docker.local:8080/raw/' + ticker
       ).then((response) => {
-        context.commit('setStatements', response.data)
+        context.commit('setStatements', response.data.statements)
+        context.commit('setMetadata', response.data.metadata)
       }).catch((error) => {
         throw error
       })
