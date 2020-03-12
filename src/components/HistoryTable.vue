@@ -25,6 +25,10 @@
       <template v-slot:cell(capex)="data">
         {{data.value}}
       </template>
+
+      <template v-slot:cell(equity)="data">
+        {{data.value}}
+      </template>
     </b-table>
   </div>
 </template>
@@ -71,6 +75,13 @@ export default class HistoryTable extends Vue {
         formatter: (value: number, key: string, item: FinancialStatement) => {
           return this.inMillions(item.cash_flow_statement.capex)
         }
+      },
+      {
+        key: 'equity',
+        label: 'Equity (in M$)',
+        formatter: (value: number, key: string, item: FinancialStatement) => {
+          return this.inMillions(item.balance_sheet.equity)
+        }
       }
     ]
 
@@ -87,7 +98,7 @@ export default class HistoryTable extends Vue {
           net_income: 1048000000
         },
         balance_sheet: {
-          long_term_debt: 0
+          equity: 1048000000
         }
       },
       {
@@ -102,7 +113,7 @@ export default class HistoryTable extends Vue {
           net_income: 1215000000
         },
         balance_sheet: {
-          long_term_debt: 0
+          equity: 1048000000
         }
       }
     ]
