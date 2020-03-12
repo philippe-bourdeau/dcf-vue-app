@@ -39,7 +39,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import { DiscountCashFlowCalculator } from '@/business/calculator/DiscountedCashFlow'
 
   @Component
-export default class HelloWorld extends Vue {
+export default class CalculatorPage extends Vue {
     private growth_rate = 0;
     private discount_rate = 0;
     private cash_flow = 0;
