@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-table
+      v-if="items.length > 0"
       striped
       hover
       :items="items"
@@ -36,11 +37,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { FinancialStatement } from '@/business/shapes/FinancialStatement'
+import { round } from '@/business/math'
 
   @Component
 export default class HistoryTable extends Vue {
   inMillions (value: number) {
-    return value / 1000000
+    return round(value / 1000000, 0)
   }
 
     fields: object[] = [
@@ -85,38 +87,9 @@ export default class HistoryTable extends Vue {
       }
     ]
 
-    items: FinancialStatement[] = [
-      {
-        ticker: 'T:CA',
-        year: '2010-12-31',
-        cash_flow_statement: {
-          operating_cash_flow: 2670000000,
-          capex: -1721000000
-        },
-        income_statement: {
-          revenue: 9742000000,
-          net_income: 1048000000
-        },
-        balance_sheet: {
-          equity: 1048000000
-        }
-      },
-      {
-        ticker: 'T:CA',
-        year: '2011-12-31',
-        cash_flow_statement: {
-          operating_cash_flow: 2550000000,
-          capex: -1867000000
-        },
-        income_statement: {
-          revenue: 10325000000,
-          net_income: 1215000000
-        },
-        balance_sheet: {
-          equity: 1048000000
-        }
-      }
-    ]
+    get items (): FinancialStatement[] {
+      return this.$store.state.statements
+    }
 }
 </script>
 

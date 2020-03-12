@@ -21,6 +21,7 @@ export default class TickerSearch extends Vue {
 
     setTicker () {
       this.$store.commit('setTicker', this.ticker)
+      this.$store.dispatch('fetchStatements')
     }
 }
 </script>
