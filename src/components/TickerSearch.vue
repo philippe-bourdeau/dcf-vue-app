@@ -17,10 +17,10 @@ import { Component, Vue } from 'vue-property-decorator'
 
   @Component
 export default class TickerSearch extends Vue {
-    ticker: string = localStorage.getItem('ticker') || ''
+    ticker: string = this.$store.state.ticker
 
     setTicker () {
-      localStorage.setItem('ticker', this.ticker.toUpperCase())
+      this.$store.commit('setTicker', this.ticker)
     }
 }
 </script>
