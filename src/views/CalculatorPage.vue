@@ -7,27 +7,24 @@
           label-align="left"
           label="Discount Rate"
           label-for="discount_rate"
-          :state="state"
         >
-          <b-form-input id="discount_rate" v-model="discount_rate" :state="state" trim></b-form-input>
+          <b-form-input id="discount_rate" v-model="discount_rate" trim></b-form-input>
         </b-form-group>
         <b-form-group
           description="Enter the estimated growth rate for the next 10 years"
           label-align="left"
           label="Growth rate"
           label-for="growth_rate"
-          :state="state"
         >
-          <b-form-input id="discount_rate" v-model="growth_rate" :state="state" trim></b-form-input>
+          <b-form-input id="discount_rate" v-model="growth_rate" trim></b-form-input>
         </b-form-group>
         <b-form-group
           description="Enter the current free cash flow to start the calculations with"
           label-align="left"
           label="Base cash flow"
           label-for="discount_rate"
-          :state="state"
         >
-          <b-form-input id="discount_rate" v-model="discount_rate" :state="state" trim></b-form-input>
+          <b-form-input id="discount_rate" v-model="discount_rate" trim></b-form-input>
         </b-form-group>
       </b-col>
       <b-col offset="1" lg="5">

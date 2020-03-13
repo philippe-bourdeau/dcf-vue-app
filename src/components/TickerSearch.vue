@@ -17,10 +17,13 @@ import { Component, Vue } from 'vue-property-decorator'
 
   @Component
 export default class TickerSearch extends Vue {
-    ticker: string = this.$store.state.metatadata.ticker
+    ticker: string = this.$store.state.metadata.ticker
 
     fetchData () {
-      this.$store.dispatch('fetchStatements', this.ticker)
+      this.$store.dispatch('fetchStatements', this.ticker).catch(
+        () => {
+          console.log('not cool')
+        })
     }
 }
 </script>
