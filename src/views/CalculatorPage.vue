@@ -1,40 +1,68 @@
 <template>
-  <div class="about">
-    <div>
-      <label for="discount_rate">Discount Rate</label>
-      <input id="discount_rate" type="number" v-model="discount_rate">
-    </div>
-    <div>
-      <label for="growth_rate">Growth Rate</label>
-      <input id="growth_rate" type="number" v-model="growth_rate">
-    </div>
-    <div>
-      <label for="cash_flow">Cash Flow</label>
-      <input id="cash_flow" type="number" v-model="cash_flow">
-    </div>
-    <table>
-      <tr>
-        <td>Sum of cash flow in ten years</td>
-        <td>{{this.discountedCashFlow.discountedCashFlowSumFirstStage()}}</td>
-      </tr>
-      <tr>
-        <td>Perpetuity cash flow</td>
-        <td>{{this.discountedCashFlow.discountedCashFlowPerpetuity()}}</td>
-      </tr>
-      <tr>
-        <td>Intrinsic value</td>
-        <td>{{this.discountedCashFlow.intrinsicValue()}}</td>
-      </tr>
-      <tr>
-        <td>Intrinsic value per share</td>
-        <td>{{this.$store.state.metadata.outstandingShares}}</td>
-      </tr>
-      <tr>
-        <td>Number of years for first stage</td>
-        <td>{{this.discountedCashFlow.years}}</td
-        ></tr>
-      <tr></tr>
-    </table>
+  <div>
+    <b-row>
+      <b-col lg="3">
+        <b-form-group
+          description="Enter the rate to discount the intrinsic value over the next 10 years"
+          label-align="left"
+          label="Discount Rate"
+          label-for="discount_rate"
+          :state="state"
+        >
+          <b-form-input id="discount_rate" v-model="discount_rate" :state="state" trim></b-form-input>
+        </b-form-group>
+        <b-form-group
+          description="Enter the estimated growth rate for the next 10 years"
+          label-align="left"
+          label="Growth rate"
+          label-for="growth_rate"
+          :state="state"
+        >
+          <b-form-input id="discount_rate" v-model="growth_rate" :state="state" trim></b-form-input>
+        </b-form-group>
+        <b-form-group
+          description="Enter the current free cash flow to start the calculations with"
+          label-align="left"
+          label="Base cash flow"
+          label-for="discount_rate"
+          :state="state"
+        >
+          <b-form-input id="discount_rate" v-model="discount_rate" :state="state" trim></b-form-input>
+        </b-form-group>
+      </b-col>
+      <b-col offset="1" lg="5">
+        <b-card bg-variant="light" title="Intrinsic value calculation" sub-title="based on free cash flow">
+          <p>
+            Sum of cash flow in ten years:
+            <code>{{this.discountedCashFlow.discountedCashFlowSumFirstStage()}}</code>
+          </p>
+          <p>
+            Perpetuity cash flow :
+            <code>
+              {{this.discountedCashFlow.discountedCashFlowPerpetuity()}}
+            </code>
+          </p>
+          <p>
+            Intrinsic value :
+            <code>
+              {{this.discountedCashFlow.intrinsicValue()}}
+            </code>
+          </p>
+          <p>
+            Number of outstanding shares :
+            <code>
+              {{this.$store.state.metadata.outstandingShares}}
+            </code>
+          </p>
+          <p>
+            Intrinsic value per share :
+            <code>
+              {{ this.discountedCashFlow.intrinsicValue() / this.$store.state.metadata.outstandingShares}}
+            </code>
+          </p>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

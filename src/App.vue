@@ -1,15 +1,15 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Data</router-link>
-      |
-      <router-link to="/valuation">Calculator</router-link>
-    </div>
-
     <b-row no-gutters>
       <ticker-search class="ticker-box"></ticker-search>
     </b-row>
     <router-view/>
+    <b-navbar fixed="bottom" variant="dark" type="dark">
+      <b-navbar-nav>
+        <b-nav-item class="menu-item" to="/">Historical Data</b-nav-item>
+        <b-nav-item class="menu-item" to="/valuation">Intrinsic value</b-nav-item>
+      </b-navbar-nav>
+    </b-navbar>
   </div>
 </template>
 
@@ -31,22 +31,13 @@ export default class App extends Vue {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
     margin: 1%;
   }
 
-  #nav {
-    padding: 30px;
-  }
-
-  #nav a {
-    font-weight: bold;
-    color: #2c3e50;
-  }
-
-  #nav a.router-link-exact-active {
-    color: #42b983;
+  .menu-item {
+    font-weight: bolder;
+    font-size: larger;
   }
 
   .ticker-box {
