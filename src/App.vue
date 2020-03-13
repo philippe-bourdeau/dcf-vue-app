@@ -8,6 +8,7 @@
       <b-navbar-nav>
         <b-nav-item class="menu-item" to="/">Historical Data</b-nav-item>
         <b-nav-item class="menu-item" to="/valuation">Intrinsic value</b-nav-item>
+        <b-nav-item class="menu-item" to="/growth">Growth</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
   </div>
