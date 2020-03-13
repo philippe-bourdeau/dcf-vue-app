@@ -1,14 +1,16 @@
 <template>
   <div>
     <b-row>
-      <b-col lg="3">
+      <b-col lg="2">
         <b-form-group
           description="Enter the rate to discount the intrinsic value over the next 10 years"
           label-align="left"
           label="Discount Rate"
           label-for="discount_rate"
         >
-          <b-form-input id="discount_rate" v-model="discount_rate" trim></b-form-input>
+          <b-input-group append="%">
+            <b-form-input id="discount_rate" v-model="discount_rate" trim></b-form-input>
+          </b-input-group>
         </b-form-group>
         <b-form-group
           description="Enter the estimated growth rate for the next 10 years"
@@ -16,45 +18,49 @@
           label="Growth rate"
           label-for="growth_rate"
         >
-          <b-form-input id="discount_rate" v-model="growth_rate" trim></b-form-input>
+          <b-input-group append="%">
+            <b-form-input id="discount_rate" v-model="growth_rate" trim></b-form-input>
+          </b-input-group>
         </b-form-group>
         <b-form-group
-          description="Enter the current free cash flow to start the calculations with"
+          description="Enter the free cash flow to start the calculations with"
           label-align="left"
           label="Base cash flow"
           label-for="discount_rate"
         >
-          <b-form-input id="discount_rate" v-model="discount_rate" trim></b-form-input>
+          <b-input-group append="$">
+            <b-form-input id="discount_rate" v-model="discount_rate" trim></b-form-input>
+          </b-input-group>
         </b-form-group>
       </b-col>
       <b-col offset="1" lg="5">
         <b-card bg-variant="light" title="Intrinsic value calculation" sub-title="based on free cash flow">
           <p>
             Sum of cash flow in ten years:
-            <code>{{this.discountedCashFlow.discountedCashFlowSumFirstStage()}}</code>
+            <code>$ {{this.discountedCashFlow.discountedCashFlowSumFirstStage()}}</code>
           </p>
           <p>
             Perpetuity cash flow :
             <code>
-              {{this.discountedCashFlow.discountedCashFlowPerpetuity()}}
+              $ {{this.discountedCashFlow.discountedCashFlowPerpetuity()}}
             </code>
           </p>
           <p>
             Intrinsic value :
             <code>
-              {{this.discountedCashFlow.intrinsicValue()}}
+              $ {{this.discountedCashFlow.intrinsicValue()}}
             </code>
           </p>
           <p>
             Number of outstanding shares :
             <code>
-              {{this.$store.state.metadata.outstandingShares}}
+              {{this.$store.state.metadata.outstandingShares || 0}}
             </code>
           </p>
           <p>
             Intrinsic value per share :
             <code>
-              {{ this.discountedCashFlow.intrinsicValue() / this.$store.state.metadata.outstandingShares}}
+              $ {{ this.discountedCashFlow.intrinsicValue() / this.$store.state.metadata.outstandingShares || 0}}
             </code>
           </p>
         </b-card>
