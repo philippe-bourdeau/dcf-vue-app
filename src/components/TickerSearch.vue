@@ -3,7 +3,7 @@
     <b-input-group prepend="Ticker">
       <b-form-input id="ticker"
                     v-model="ticker"
-                    placeholder="ex. T.CA">
+                    placeholder="ex. T:CA">
       </b-form-input>
       <b-input-group-append>
         <b-button @click="fetchData" variant="info">Search</b-button>
