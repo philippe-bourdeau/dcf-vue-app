@@ -15,11 +15,10 @@ export default {
   watch: {
     chartData: {
       handler: function () {
-        this.$data._chart.destroy()
+        this.$data._chart.update()
         this.renderChart(this.chartData, this.chartOptions)
       },
-      deep: true,
-      immediate: false
+      deep: true
     }
   },
   mounted () {

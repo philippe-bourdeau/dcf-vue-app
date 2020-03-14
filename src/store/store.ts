@@ -17,7 +17,8 @@ const options: StoreOptions<RootState> = {
     statements: []
   },
   getters: {
-    getStatements: state => state.statements
+    getStatements: state => state.statements,
+    getTicker: state => state.metadata.ticker
   },
   mutations: {
     setMetadata (state: RootState, { ticker, price, market_cap }) {
