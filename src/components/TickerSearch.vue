@@ -26,8 +26,9 @@ export default class TickerSearch extends Vue {
         (error) => {
           each(error.response.data.errors.ticker, (item) => {
             this.$bvToast.toast(`${item}`, {
-              title: 'warning',
-              autoHideDelay: 4000
+              title: 'Invalid ticker',
+              autoHideDelay: 8000,
+              variant: 'warning'
             })
           })
           console.log(error.errors)
