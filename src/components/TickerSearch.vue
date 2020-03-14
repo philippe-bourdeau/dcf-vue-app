@@ -24,7 +24,7 @@ export default class TickerSearch extends Vue {
     fetchData () {
       this.$store.dispatch('fetchStatements', this.ticker).catch(
         (error) => {
-          each(error.errors.ticker, (item) => {
+          each(error.response.data.errors.ticker, (item) => {
             this.$bvToast.toast(`${item}`, {
               title: 'warning',
               autoHideDelay: 4000
