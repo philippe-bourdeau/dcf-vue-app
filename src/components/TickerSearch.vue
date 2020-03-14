@@ -3,7 +3,8 @@
     <b-input-group prepend="Ticker">
       <b-form-input id="ticker"
                     v-model="ticker"
-                    placeholder="ex. T:CA">
+                    placeholder="ex. T:CA"
+                    @keypress.enter="fetchData">
       </b-form-input>
       <b-input-group-append>
         <b-button @click="fetchData" variant="info">Search</b-button>
@@ -14,6 +15,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { each } from 'lodash'
 
   @Component
 export default class TickerSearch extends Vue {
@@ -21,9 +23,17 @@ export default class TickerSearch extends Vue {
 
     fetchData () {
       this.$store.dispatch('fetchStatements', this.ticker).catch(
-        () => {
-          console.log('not cool')
-        })
+        (error) => {
+          each(error.errors.ticker, (item) => {
+            this.$bvToast.toast(`${item}`, {
+              title: 'warning',
+              autoHideDelay: 4000
+            })
+          })
+          console.log(error.errors)
+        }
+
+      )
     }
 }
 </script>

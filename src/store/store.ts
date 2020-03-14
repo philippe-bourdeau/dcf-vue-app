@@ -31,7 +31,7 @@ const options: StoreOptions<RootState> = {
   actions: {
     fetchStatements (context, ticker) {
       axios.get(
-        'http://php-docker.local:8080/raw/' + ticker
+        `http://php-docker.local:8080/query?ticker=${ticker}`
       ).then((response) => {
         context.commit('setStatements', response.data.statements)
         context.commit('setMetadata', response.data.metadata)
