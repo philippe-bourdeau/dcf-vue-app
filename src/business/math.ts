@@ -1,3 +1,5 @@
+import { round } from 'lodash'
+
 /**
  *
  * @param rate
@@ -13,5 +15,5 @@ export function rateOverYears (rate: number, years: number): number {
  * @param pastValue
  */
 export function growthRate (currentValue: number, pastValue: number): number {
-  return (currentValue - pastValue) / pastValue
+  return round((currentValue - pastValue) / pastValue * 100, 2)
 }

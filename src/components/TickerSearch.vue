@@ -31,9 +31,7 @@ export default class TickerSearch extends Vue {
               variant: 'warning'
             })
           })
-          console.log(error.errors)
         }
-
       )
     }
 }

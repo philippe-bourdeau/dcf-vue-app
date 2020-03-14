@@ -16,6 +16,9 @@ const options: StoreOptions<RootState> = {
     metadata: new FinancialMetadata('', 0, 0),
     statements: []
   },
+  getters: {
+    getStatements: state => state.statements
+  },
   mutations: {
     setMetadata (state: RootState, { ticker, price, market_cap }) {
       state.metadata = new FinancialMetadata(

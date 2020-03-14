@@ -6,5 +6,5 @@ test('rate over 3 years', () => {
 })
 
 test('test growth rate', () => {
-  expect(growthRate(420, 210)).toBe(1)
+  expect(growthRate(420, 210)).toBe(100)
 })
