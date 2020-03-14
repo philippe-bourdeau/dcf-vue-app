@@ -1,4 +1,4 @@
-import { round } from '@/business/math'
+import { round } from 'lodash'
 
 export interface IFinancialMetadata {
   readonly ticker: string;
@@ -18,6 +18,6 @@ export class FinancialMetadata implements IFinancialMetadata {
   }
 
   get outstandingShares () {
-    return round(this.market_cap / this.price, 0)
+    return round(this.market_cap / this.price)
   }
 }

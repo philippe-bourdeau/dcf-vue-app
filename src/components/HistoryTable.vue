@@ -45,12 +45,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 import { FinancialStatement } from '@/business/shapes/FinancialStatement'
-import { round } from '@/business/math'
+import { round } from 'lodash'
 
   @Component
 export default class HistoryTable extends Vue {
   inMillions (value: number) {
-    return round(value / 1000000, 0)
+    return round(value / 1000000)
   }
 
     fields: object[] = [

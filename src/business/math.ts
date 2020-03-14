@@ -8,15 +8,10 @@ export function rateOverYears (rate: number, years: number): number {
 }
 
 /**
- * Found on numerous websites but here is one http://www.jacklmoore.com/notes/rounding-in-javascript/
  *
- * @param value
- * @param decimals
+ * @param currentValue
+ * @param pastValue
  */
-export function round (value: number, decimals: number): number {
-  return Number(
-    Math.round(
-      Number(value + 'e' + decimals)
-    ) + 'e-' + decimals
-  )
+export function growthRate (currentValue: number, pastValue: number): number {
+  return (currentValue - pastValue) / pastValue
 }
