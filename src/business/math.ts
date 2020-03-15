@@ -15,5 +15,5 @@ export function rateOverYears (rate: number, years: number): number {
  * @param pastValue
  */
 export function growthRate (currentValue: number, pastValue: number): number {
-  return round((currentValue - pastValue) / pastValue * 100, 2)
+  return round((currentValue - Math.abs(pastValue)) / Math.abs(pastValue) * 100, 2)
 }
