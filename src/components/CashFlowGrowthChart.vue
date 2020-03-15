@@ -1,8 +1,8 @@
 <template>
   <div>
     <line-chart
-      :width="500"
-      :height="500"
+      :width="width"
+      :height="height"
       :chart-data="chartData"
       :chart-options="chartOptions"
     >
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import LineChart from '@/components/LineChart.vue'
 import { map } from 'lodash'
 import { growthRate } from '@/business/math'
@@ -23,7 +23,10 @@ import { ChartData, ChartOptions } from 'chart.js'
       LineChart
     }
   })
-export default class GrowthPage extends Vue {
+export default class CashFlowGrowthChart extends Vue {
+    @Prop() width!: number
+    @Prop() height!: number
+
     chartOptions: ChartOptions = {
       responsive: false,
       maintainAspectRatio: false
@@ -38,15 +41,49 @@ export default class GrowthPage extends Vue {
       return this.$store.getters.getStatements
     }
 
-    generateGrowthSeries () {
+    operatingCashFlowGrowthSeries () {
       const series = map(this.$store.getters.getStatements, (value: FinancialStatement, index: number, collection: FinancialStatement[]) => {
         if (index === 0) {
           return NaN
         }
 
         return growthRate(
-          value.balance_sheet.equity,
-          collection[index - 1].balance_sheet.equity
+          value.cash_flow_statement.operating_cash_flow,
+          collection[index - 1].cash_flow_statement.operating_cash_flow
+        )
+      })
+
+      series.shift()
+
+      return series
+    }
+
+    capexGrowthSeries () {
+      const series = map(this.$store.getters.getStatements, (value: FinancialStatement, index: number, collection: FinancialStatement[]) => {
+        if (index === 0) {
+          return NaN
+        }
+
+        return growthRate(
+          Math.abs(value.cash_flow_statement.capex),
+          Math.abs(collection[index - 1].cash_flow_statement.capex)
+        )
+      })
+
+      series.shift()
+
+      return series
+    }
+
+    FCFGrowthSeries () {
+      const series = map(this.$store.getters.getStatements, (value: FinancialStatement, index: number, collection: FinancialStatement[]) => {
+        if (index === 0) {
+          return NaN
+        }
+
+        return growthRate(
+          value.cash_flow_statement.operating_cash_flow + value.cash_flow_statement.capex,
+          collection[index - 1].cash_flow_statement.operating_cash_flow + collection[index - 1].cash_flow_statement.capex
         )
       })
 
@@ -73,10 +110,22 @@ export default class GrowthPage extends Vue {
     onStatementsChanged () {
       this.chartData.datasets = [
         {
-          label: 'Equity Growth',
-          data: this.generateGrowthSeries(),
+          label: 'Free cash flow growth',
+          data: this.FCFGrowthSeries(),
           backgroundColor: 'rgba(0, 0, 0, 0)',
-          borderColor: '#861657'
+          borderColor: '#00f0b5'
+        },
+        {
+          label: 'CAPEX growth',
+          data: this.capexGrowthSeries(),
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderColor: '#ff6663'
+        },
+        {
+          label: 'Operating Cash Flow growth',
+          data: this.operatingCashFlowGrowthSeries(),
+          backgroundColor: 'rgba(0, 0, 0, 0)',
+          borderColor: '#f61067'
         }
       ]
 
