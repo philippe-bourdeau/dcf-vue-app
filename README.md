@@ -1,4 +1,5 @@
-# jambon
+# Application
+Small vue app to play around with a simplified discounted cash flow calculator
 
 ## Project setup
 ```
